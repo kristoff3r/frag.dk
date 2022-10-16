@@ -1,0 +1,21 @@
+{% macro menu(config) %}
+<nav class="menu">
+    <ul class="menu__inner">
+    {% for item in config.extra.menu_items %}
+        {% if item.url %}
+            {% set url = item.url %}
+        {% else %}
+            {% if item.path is not ending_with(".md") %}
+                {% set page = get_section(path=item.path ~ "/_index.md", metadata_only=true) %}
+            {% else %}
+                {% set page = get_page(path=item.path, metadata_only=true) %}
+            {% endif %}
+            {% set url = page.permalink %}
+        {% endif %}
+        <li {%- if current_url and current_url == url %} class="active" {%- endif %}>
+            <a href="{{ url }}"> {{ item.name }} </a>
+        </li>
+    {% endfor %}
+    </ul>
+</nav>
+{% endmacro menu %}

@@ -20,6 +20,7 @@
         default = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
             zola
+            minify
           ];
         };
       };
